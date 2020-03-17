@@ -8,7 +8,7 @@ public class QuickUnion {
     private int[] array;
 
     public QuickUnion(int array_length) {
-        // Function that initializes the array as 0, 1, 2, 3, ..., (n - 1)
+        // Function that initializes 'array' as 0, 1, 2, 3, ..., (n - 1)
         array = new int[array_length];
 
         for(int i = 0; i < array_length; i++)
@@ -16,7 +16,7 @@ public class QuickUnion {
     }
 
     public void union(int node_one_index, int node_two_index) {
-        // Function that changes the parent of the root of node_two to the root of node_one
+        // Function that changes the parent of the root of 'node_two' to the root of 'node_one'
         array[root(node_two_index)] = root(node_one_index);
     }
 

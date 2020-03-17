@@ -8,7 +8,7 @@ public class QuickFind {
     private int[] array;
 
     public QuickFind(int array_length) {
-        // Function that initializes the array as 0, 1, 2, 3, ..., (n - 1)
+        // Function that initializes 'array' as 0, 1, 2, 3, ..., (n - 1)
         array = new int[array_length];
 
         for(int i = 0; i < array_length; i++)
@@ -16,7 +16,7 @@ public class QuickFind {
     }
 
     public void union(int node_one_index, int node_two_index) {
-        // Function that changes the parent of all the nodes to node_one that currently have parent as node_two
+        // Function that changes the parent of all the nodes that currently have parent as 'node_two' to 'node_one'
         int node_one_parent_index = array[node_one_index], node_two_parent_index = array[node_two_index];
 
         for(int i = 0; i < array.length; i++)
