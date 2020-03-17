@@ -1,25 +1,31 @@
-package com.company;
+/*
+Java implementation of Quick Find, subcategory of Union Find algorithm that is used to solve dynamic connectivity problem
+Author: Saksham Tiwari
+Date: 17th March 2020
+*/
 
 public class QuickFind {
     private int[] array;
 
-    public QuickFind(int n) {
-        array = new int[n];
+    public QuickFind(int array_length) {
+        // Function that initializes the array as 0, 1, 2, 3, ..., (n - 1)
+        array = new int[array_length];
 
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < array_length; i++)
             array[i] = i;
     }
 
-    public boolean connected(int index_one, int index_two) {
-        return array[index_one] == array[index_two];
-    }
-
-    public void union(int index_one, int index_two) {
-        int node_one_parent_id = array[index_one];
-        int node_two_parent_id = array[index_two];
+    public void union(int node_one_index, int node_two_index) {
+        // Function that changes the parent of all the nodes to node_one that currently have parent as node_two
+        int node_one_parent_index = array[node_one_index], node_two_parent_index = array[node_two_index];
 
         for(int i = 0; i < array.length; i++)
-            if(array[i] == node_two_parent_id)
-                array[i] = node_one_parent_id;
+            if(array[i] == node_two_parent_index)
+                array[i] = node_one_parent_index;
+    }
+
+    public boolean find(int node_one_index, int node_two_index) {
+        // Function that checks whether the two nodes share the same parent
+        return array[node_one_index] == array[node_two_index];
     }
 }
