@@ -1,5 +1,3 @@
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -31,24 +29,27 @@ public class Percolation {
     public void open(int row, int col) {
         validate(row, col);
 
-        int[][] adjacent_node_indices = {
-                {row - 1, col},
-                {row + 1, col},
-                {row, col - 1},
-                {row, col + 1}
-        };
-
         int index = index(row, col);
-        for(int[] indices: adjacent_node_indices) {
-            int adjacent_node_index = index(indices[0], indices[1]);
+        if(!isOpen(row, col)) {
+            open[index] = true;
+            number_of_open_sites++;
 
-            if(indices[0] > 0 && indices[0] <= N && indices[1] > 0 && indices[1] <= N)
-                if(isOpen(indices[0], indices[1]) && !weighted_quick_union.connected(index, adjacent_node_index))
-                    weighted_quick_union.union(index, adjacent_node_index);
+            int[][] adjacent_node_coordinates = {
+                    {row - 1, col},
+                    {row + 1, col},
+                    {row, col - 1},
+                    {row, col + 1}
+            };
+
+            for(int[] coordinates: adjacent_node_coordinates)
+                if(coordinates[0] > 0 && coordinates[0] <= N && coordinates[1] > 0 && coordinates[1] <= N) {
+                    int adjacent_node_index = index(coordinates[0], coordinates[1]);
+
+                    if (isOpen(coordinates[0], coordinates[1]) && !weighted_quick_union.connected(index, adjacent_node_index)) {
+                        weighted_quick_union.union(index, adjacent_node_index);
+                    }
+                }
         }
-
-        open[index] = true;
-        number_of_open_sites++;
     }
 
     public boolean isOpen(int row, int col) {
