@@ -40,4 +40,8 @@ public class PercolationStats {
     public double confidenceHi() {
         return mean() + ((1.96 * stddev()) / Math.sqrt(trials));
     }
+
+    public static void main(String[] args) {
+
+    }
 }
