@@ -71,13 +71,13 @@ public class Percolation {
         return weighted_quick_union.connected(VIRTUAL_TOP_INDEX, VIRTUAL_BOTTOM_INDEX);
     }
 
-    public void validate(int row, int col) {
-        if(row < 1 || row > N || col < 1 || col > N)
+    public void validate(int n) {
+        if(n < 1)
             throw new IllegalArgumentException();
     }
 
-    public void validate(int n) {
-        if(n < 1)
+    public void validate(int row, int col) {
+        if(row < 1 || row > N || col < 1 || col > N)
             throw new IllegalArgumentException();
     }
 
