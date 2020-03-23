@@ -2,21 +2,22 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
-    private double[] fractions;
-    private double trials;
+    private final double trials, multiplier;
+    private final double[] fractions;
 
     public PercolationStats(int n, int trials) {
-        if(n < 1 || trials < 1)
+        if (n < 1 || trials < 1)
             throw new IllegalArgumentException();
 
         this.trials = trials;
+        multiplier = 1.96;
         fractions = new double[trials];
 
         Percolation percolation;
-        for(int index = 0; index < trials; index++) {
+        for (int index = 0; index < trials; index++) {
             percolation = new Percolation(n);
 
-            while(!percolation.percolates()) {
+            while (!percolation.percolates()) {
                 int i = StdRandom.uniform(1, n + 1), j = StdRandom.uniform(1, n + 1);
                 percolation.open(i, j);
             }
@@ -34,14 +35,14 @@ public class PercolationStats {
     }
 
     public double confidenceLo() {
-        return mean() - ((1.96 * stddev()) / Math.sqrt(trials));
+        return mean() - ((multiplier * stddev()) / Math.sqrt(trials));
     }
 
     public double confidenceHi() {
-        return mean() + ((1.96 * stddev()) / Math.sqrt(trials));
+        return mean() + ((multiplier * stddev()) / Math.sqrt(trials));
     }
 
     public static void main(String[] args) {
-
+        // Kept empty for tests
     }
 }
