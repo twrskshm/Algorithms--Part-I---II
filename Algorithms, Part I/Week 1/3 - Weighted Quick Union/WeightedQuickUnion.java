@@ -1,46 +1,54 @@
 /*
-Java implementation of Weighted Quick Union, an improvement of Quick Union algorithm
-Author: Saksham Tiwari
-Date: 17th March 2020
+Week One: Weighted Quick Union
+
+Time complexities:
+Initialization: Best case: O(n)
+Initialization: Worst case: O(n)
+
+Union: Best case: O(1)
+Union: Worst case: O(lg(n))
+
+Find: Best case: O(1)
+Find: Worst case: O(lg(n))
+
+Space complexity:
+O(n)
 */
 
-package com.company;
-
 public class WeightedQuickUnion {
-    private int[] array, weights;
+    private final int[] array;
+    private final int[] weight;
 
-    public WeightedQuickUnion(int array_length) {
-        // Function that initializes 'array' as 0, 1, 2, 3, ..., (n - 1) and 'weights' as 0, 0, 0, ...
-        array = new int[array_length];
-        weights = new int[array_length];
+    public WeightedQuickUnion(final int arrayLength) {
+        array = new int[arrayLength];
+        weight = new int[arrayLength];
 
-        for(int i = 0; i < array_length; i++)
-            array[i] = i;
+        for (int index = 0; index < array.length; index++)
+            array[index] = index;
     }
 
-    public void union(int node_one_index, int node_two_index) {
-        // Function that changes the parent of the root of 'node_two' to the root of 'node_one', or the parent of the root of 'node_one' to the root of 'node_two' depending on the weights of both subtrees
-        int node_one_root_index = root(node_one_index), node_two_root_index = root(node_two_index);
+    public void union(final int indexOne, final int indexTwo) {
+        final int elementOneParent = root(indexOne);
+        final int elementTwoParent = root(indexTwo);
 
-        if(weights[node_one_root_index] > weights[node_two_root_index]) {
-            array[node_two_root_index] = node_one_root_index;
-            weights[node_one_root_index] += weights[node_two_root_index];
+        if (weight[elementOneParent] > weight[elementTwoParent]) {
+            array[elementTwoParent] = elementOneParent;
+            weight[elementOneParent] += weight[elementTwoParent];
         } else {
-            array[node_one_root_index] = node_two_root_index;
-            weights[node_two_root_index] += weights[node_one_root_index];
+            array[elementOneParent] = elementTwoParent;
+            weight[elementTwoParent] += weight[elementOneParent];
         }
     }
 
-    public boolean find(int node_one_index, int node_two_index) {
-        // Function that checks whether the two nodes share the same parent
-        return root(node_one_index) == root(node_two_index);
+    public boolean find(final int indexOne, final int indexTwo) {
+        return root(indexOne) == root(indexTwo);
     }
 
-    public int root(int node_index) {
-        // Function that finds the root of a node
-        while(node_index != array[node_index])
-            node_index = array[node_index];
+    private int root(int index) {
+        while (array[index] != index)
+            index = array[index];
 
-        return node_index;
+        return index;
     }
 }
+

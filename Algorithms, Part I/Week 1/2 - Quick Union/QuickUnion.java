@@ -1,35 +1,43 @@
 /*
-Java implementation of Quick Union, subcategory of Union Find algorithm that is used to solve dynamic connectivity problem
-Author: Saksham Tiwari
-Date: 17th March 2020
+Week One: Quick Union
+
+Time complexities:
+Initialization: Best case: O(n)
+Initialization: Worst case: O(n)
+
+Union: Best case: O(1)
+Union: Worst case: O(n)
+
+Find: Best case: O(1)
+Find: Worst case: O(n)
+
+Space complexity:
+O(1)
 */
 
 public class QuickUnion {
-    private int[] array;
+    private final int[] array;
 
-    public QuickUnion(int array_length) {
-        // Function that initializes 'array' as 0, 1, 2, 3, ..., (n - 1)
-        array = new int[array_length];
+    public QuickUnion(final int arrayLength) {
+        array = new int[arrayLength];
 
-        for(int i = 0; i < array_length; i++)
-            array[i] = i;
+        for (int index = 0; index < array.length; index++)
+            array[index] = index;
     }
 
-    public void union(int node_one_index, int node_two_index) {
-        // Function that changes the parent of the root of 'node_two' to the root of 'node_one'
-        array[root(node_two_index)] = root(node_one_index);
+    public void union(final int indexOne, final int indexTwo) {
+        array[root(indexTwo)] = root(indexOne);
     }
 
-    public boolean find(int node_one_index, int node_two_index) {
-        // Function that checks whether the two nodes share the same parent
-        return root(node_one_index) == root(node_two_index);
+    public boolean find(final int indexOne, final int indexTwo) {
+        return root(indexOne) == root(indexTwo);
     }
 
-    public int root(int node_index) {
-        // Function that finds the root of a node
-        while(node_index != array[node_index])
-            node_index = array[node_index];
+    private int root(int index) {
+        while (array[index] != index)
+            index = array[index];
 
-        return node_index;
+        return index;
     }
 }
+
